@@ -1,28 +1,30 @@
 # NBA Game Outcome Prediction Model
 
-This project predicts NBA game outcomes using machine learning techniques. It involves data cleaning, feature engineering, model training, evaluation, and finally, making predictions on upcoming games.
+This repository implements a machine learning project that predicts NBA game outcomes using historical game data. The project retrieves data using the nba_api, computes rolling averages for key game statistics, and trains a classifier to predict whether a team will win.
 
-## Modeling Approach
+## Project Overview
 
-1. **Data Cleaning**:  
-   - Missing values handled via imputation or removal  
-   - Data types corrected for consistency  
-   - Outliers addressed based on domain-specific knowledge  
+The modeling approach involves the following steps:
 
-2. **Feature Engineering**:  
-   - Rolling averages for recent team performances  
-   - Rest day calculations  
-   - Win/loss streak features, home/away splits  
+1. **Data Retrieval**
+   - Historical NBA game data is collected using nba_api endpoints such as `leaguegamefinder` and `leaguedashteamstats`.
+   - Data is gathered across multiple seasons to ensure a robust dataset.
 
-3. **Model Selection & Training**:  
-   - Example models: Logistic Regression, Random Forest, XGBoost  
-   - Hyperparameter tuning via Grid Search or Random Search  
-   - Cross-validation for robust model performance estimation  
+2. **Data Combination & Cleaning**
+   - The `combine_team_games` function merges game records by joining home and away statistics based on common game identifiers.
+   - The data is filtered and cleaned to ensure that each game’s statistics are correctly aligned for both teams.
 
-4. **Evaluation**:  
-   - Key metrics: Accuracy, Precision, Recall, F1 score  
-   - Confusion matrix analysis  
-   - Feature importance inspection (particularly for tree-based models)  
+3. **Feature Engineering with Rolling Averages**
+   - A custom function, `rolling_averages`, computes 5-game rolling averages for several statistical metrics. This smooths out short-term fluctuations and captures recent performance trends.
+   - New rolling-average features are added to the dataset, preparing it for model training.
 
-5. **Prediction**:  
-   - Given matchup data (e.g., Team A vs. Team B on a certain date), the model outputs the predicted winner.
+4. **Target Variable Creation**
+   - Win/loss outcomes are encoded as a binary target (1 for win, 0 for loss) in the `df_with_target` function.
+
+5. **Model Training & Evaluation**
+   - A Gaussian Naive Bayes classifier is used to predict game outcomes.
+   - The dataset is split into training and testing subsets separately for home and away games.
+   - Model performance is measured using accuracy and precision metrics.
+
+6. **Prediction Function**
+   - The `predictor` function utilizes the most recent rolling averages to predict the outcome of upcoming games, providing a simple interface for generating predictions.
