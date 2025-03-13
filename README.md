@@ -4,7 +4,7 @@ This repository implements a machine learning project that predicts NBA game out
 
 ## Project Overview
 
-The modeling approach involves the following steps:
+The modeling approach can be briefly summarized into the following steps:
 
 1. **Data Retrieval**
    - Historical NBA game data is collected using nba_api endpoints such as `leaguegamefinder` and `leaguedashteamstats`.
